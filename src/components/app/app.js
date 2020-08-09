@@ -19,7 +19,7 @@ export default function App() {
 
   useEffect(() => {
     const sw = new SwapiService();
-    sw.getAllPeople().then((data) => {
+    sw.getPeopleWithTheirPlanet().then((data) => {
       setItems(data);
     });
   }, []);
@@ -49,8 +49,9 @@ export default function App() {
     return {
       id: ++(items.length),
       name,
-      birthYear: Math.floor(Math.random() * 100) + 1,
-      gender: genderArr[Math.floor(Math.random() * genderArr.length)]
+      birthYear: '' + Math.floor(Math.random() * 100) + 1,
+      gender: genderArr[Math.floor(Math.random() * genderArr.length)],
+      planet: { 'id': 1, 'name': 'Nameko' }
     };
   }
 
@@ -59,10 +60,11 @@ export default function App() {
     setItems(items.filter(({ id }) => id !== idx));
   }
 
+
   const filteredData = items.filter(item => {
-    return Object.keys(item).some(key =>
-      typeof item[key] === "string" && item[key].toLowerCase().includes(filter.toLowerCase())
-    );
+    return Object.keys(item).some(key => {
+      return typeof item[key] === "string" && item[key].toLowerCase().includes(filter.toLowerCase())
+    })
   });
 
   return (

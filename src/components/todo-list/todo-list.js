@@ -24,6 +24,7 @@ const TodoList = ({ items, onDelete }) => {
 					<th>Name</th>
 					<th>BirthYear</th>
 					<th>Gender</th>
+					<th>Planet</th>
 					<th>Action</th>
 				</tr>
 			</thead>

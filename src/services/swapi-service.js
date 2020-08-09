@@ -35,16 +35,15 @@ export default class SwapiService {
 		return Promise.all(data.map((element) => this.getPlanet(element.homeworld)));
 	}
 
-	// getPeopleWithTheirPlanet = async () => {
-	// 	const allPeople = await this.getAllPeople();
-	// 	return Promise.all(allPeople.map(async (element) => {
-	// 		const planet = await this.getPlanet(element.homeworld);
-	// 		console.log(Object.assign(element, planet));
-	// 		// console.log(await this.getPlanet(element.homeworld));
-	// 		const content = this.getPlanet(element.homeworld);
-	// 		return content;
-	// 	}));
-	// }
+
+	getPeopleWithTheirPlanet = async () => {
+		const allPeople = await this.getAllPeople();
+		return Promise.all(allPeople.map(async (element) => {
+			// const planet = await this.getPlanet(element.homeworld); //{planetId,planetname} = await this.getPlanet(element.homeworld)
+			const { id: planet_id, name: planet_name } = await this.getPlanet(element.homeworld);
+			return Object.assign({}, element, { planet_id, planet_name });
+		}));
+	}
 
 
 	_extractId = (item) => {
